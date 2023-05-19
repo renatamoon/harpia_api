@@ -2,7 +2,6 @@
 Consulta SQL da Questão 1:
 =========================
 
-
 SELECT
     u.name,
     u.email,
@@ -17,3 +16,33 @@ WHERE
     u.role_id = r.id
     AND u.id = uc.user_id
     AND uc.claim_id = c.id;
+
+
+=========================
+Code Review - Questão 7:
+=========================
+---- Referente ao erro aparentemente não á essa variável dentro do arquivo de config. O que eu pude analisar é que ou
+não foi passada essa var dentro do arquivo de config, ou dentro de alguma lib ele não existe.
+
+---- Sobre as revisões de codigo:
+
+> O codigo está muito sujo
+> não tem padrão de import
+> geralmente uma função deve ter apenas 1 ou duas responsabilidades, nesse caso, há um exagerado
+acumulo de tarefas em uma mesma função, o que dificulta a ligibilidade da mesma.
+> o "projeto" desse bot não tem estrutura e nem segue um padrão conhecido de estrutura de pastas, o que dificulta
+a leitura do que cada modulo faz;
+> o acesso ao banco está dentro do mesmo arquivo da função "main" gerando um acumulo muto grande de execuções na mesma
+função;
+> há imports não usados também, remover eles ajuda a manter o codigo mais limpo
+> o log, deveria estar em um nivel acessivel a todas as funções, a fim de evitar que seja duplicado.
+> colocar alguns try excepts para captura e evitar erros também é valid no caso de algumas funções.
+
+
+=========================
+Code Review - Questão 8:
+=========================
+Utilizaria o Template Method, com arquitetura Onion. Onde existe uma classe que faz o serviço completo e ela
+chama outras classes para fazer as tarefas relacionadas dentro do serviço de cada modulo.
+
+Sobre a Onion: https://www.infoq.com/br/articles/onion-architecture/
